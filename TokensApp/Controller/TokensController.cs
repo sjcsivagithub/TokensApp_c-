@@ -38,7 +38,7 @@ public class TokensController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error occurred while fetching vendor categories.");
-            return StatusCode(500, new { message = ex.Message, inner = ex.InnerException?.Message });
+            return StatusCode(500, new { message = "An internal error occurred while fetching categories." });
         }
     }
 
