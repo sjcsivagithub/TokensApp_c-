@@ -48,4 +48,12 @@ if (!app.Environment.IsProduction())
     app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+// ── Auto-Create Database schema on startup ──────────────────────────────
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.EnsureCreated();
+}
+
 app.Run();
