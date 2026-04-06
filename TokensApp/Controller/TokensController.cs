@@ -38,12 +38,7 @@ public class TokensController : ControllerBase
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error occurred while fetching vendor categories.");
-            // TEMP DEBUG: expose real error so we can see it in Swagger/Postman
-            return StatusCode(500, new {
-                message = ex.Message,
-                inner   = ex.InnerException?.Message,
-                type    = ex.GetType().Name
-            });
+            return StatusCode(500, new { message = "An internal error occurred while fetching categories." });
         }
     }
 

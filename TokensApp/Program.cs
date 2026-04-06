@@ -48,22 +48,4 @@ if (!app.Environment.IsProduction())
     app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
-
-// ── Startup DB connectivity test ──────────────────────────────────
-using (var scope = app.Services.CreateScope())
-{
-    var db  = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var log = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-    try
-    {
-        db.Database.EnsureCreated();
-        log.LogInformation("[STARTUP] Database connected and schema verified OK.");
-    }
-    catch (Exception ex)
-    {
-        // This message will appear in the Render Logs tab — shows the REAL connection error
-        log.LogCritical(ex, "[STARTUP] FAILED to connect to database: {Message}", ex.Message);
-    }
-}
-
 app.Run();
