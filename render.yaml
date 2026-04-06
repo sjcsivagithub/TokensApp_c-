@@ -1,0 +1,40 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# render.yaml — Render.com Infrastructure-as-Code
+#
+# Docs: https://render.com/docs/blueprint-spec
+#
+# IMPORTANT: Variables marked "sync: false" must be set manually in the
+# Render dashboard under: Service → Environment
+# ──────────────────────────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: tokens-app-api
+    env: docker
+
+    # Path to Dockerfile (relative to repo root)
+    dockerfilePath: ./TokensApp/Dockerfile
+
+    # Docker build context — all source files Dockerfile can COPY from
+    dockerContext: ./TokensApp
+
+    plan: free
+
+    envVars:
+      # ── ASP.NET Core ──────────────────────────────────────────────────────
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+
+      # ── PostgreSQL connection string ───────────────────────────────────────
+      # Double underscore (__) = colon (:) in .NET configuration hierarchy.
+      # Maps to ConnectionStrings:TokensDb in appsettings.json.
+      # Set the full connection string in the Render dashboard.
+      # Example: Host=<host>;Port=5432;Database=<db>;Username=<user>;Password=<pass>;Ssl Mode=Require;Trust Server Certificate=true
+      - key: ConnectionStrings__TokensDb
+        sync: false   # SECRET — enter value in Render dashboard
+
+      # ── JWT Secret (future use) ────────────────────────────────────────────
+      # Use a long random string (32+ chars). Generate with:
+      #   openssl rand -base64 32
+      - key: JWT_SECRET
+        sync: false   # SECRET — enter value in Render dashboard
