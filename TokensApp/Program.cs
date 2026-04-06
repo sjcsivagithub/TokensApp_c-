@@ -3,6 +3,10 @@ using TokensApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ── Render.com: bind to dynamic $PORT (fallback 8080 for local) ───────────
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+
 // ── Register PostgreSQL DbContext ──────────────────────────────────────
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TokensDb")));
@@ -39,7 +43,9 @@ app.Use(async (context, next) =>
     }
 });
 
-app.UseHttpsRedirection();
+// Skip HTTPS redirect in Production — Render.com terminates TLS externally
+if (!app.Environment.IsProduction())
+    app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

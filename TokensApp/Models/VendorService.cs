@@ -38,4 +38,7 @@ public class VendorService
 
     [Column("modified_by")][MaxLength(100)]
     public string? ModifiedBy { get; set; }
+
+    // Navigation property
+    public Vendor? Vendor { get; set; }
 }

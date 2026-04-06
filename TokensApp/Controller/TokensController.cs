@@ -94,7 +94,7 @@ public class TokensController : ControllerBase
                 return NotFound(new { message = $"Vendor {vendorId} not found or inactive." });
             }
 
-            var services = await _db.Set<VendorService>()
+            var services = await _db.VendorServices
                 .Where(s => s.VendorId == vendorId && s.IsActive)
                 .Select(s => new {
                     s.ServiceId, s.ServiceName,

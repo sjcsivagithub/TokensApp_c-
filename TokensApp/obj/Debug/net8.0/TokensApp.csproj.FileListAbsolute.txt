@@ -109,3 +109,4 @@ C:\Users\sivaj\real_token_app\TokensApp\bin\Debug\net8.0\ru\Microsoft.CodeAnalys
 C:\Users\sivaj\real_token_app\TokensApp\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\sivaj\real_token_app\TokensApp\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\sivaj\real_token_app\TokensApp\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\sivaj\real_token_app\TokensApp\obj\Debug\net8.0\TokensApp.sourcelink.json
